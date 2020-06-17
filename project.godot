@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="game_heh"
-run/main_scene="res://scenes/world.tscn"
+run/main_scene="res://scenes/level.tscn"
 config/icon="res://assets/icon/icon.png"
 
 [display]
