@@ -23,7 +23,6 @@ tracks/0/keys = {
 [node name="torch" type="Node2D"]
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 463.059, 167.371 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 5
