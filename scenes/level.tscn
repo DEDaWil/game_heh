@@ -3,13 +3,13 @@
 [ext_resource path="res://assets/tilesets/level/terrain.png" type="Texture" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="OccluderPolygon2D" id=3]
+[sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="TileSet" id=1]
+[sub_resource type="TileSet" id=3]
 0/name = "terrain.png 0"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
@@ -20,14 +20,14 @@ polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 2 )
+0/shape = SubResource( 1 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -94,7 +94,7 @@ polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 5/region = Rect2( 16, 16, 16, 16 )
 5/tile_mode = 0
 5/occluder_offset = Vector2( 0, 0 )
-5/occluder = SubResource( 3 )
+5/occluder = SubResource( 2 )
 5/navigation_offset = Vector2( 0, 0 )
 5/shape_offset = Vector2( 0, 0 )
 5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
@@ -268,7 +268,7 @@ polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [node name="TileMap" type="TileMap"]
 scale = Vector2( 4, 4 )
-tile_set = SubResource( 1 )
+tile_set = SubResource( 3 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 11, 1, 0, 12, 1, 0, 13, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 11, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 11, 0, 65543, 1, 0, 65544, 1, 0, 65545, 11, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 65549, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 11, 0, 131077, 11, 0, 131078, 1, 0, 131079, 1, 0, 131080, 1, 0, 131081, 11, 0, 131082, 1, 0, 131083, 11, 0, 131084, 1, 0, 131085, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 11, 0, 196611, 1, 0, 196612, 11, 0, 196613, 1, 0, 196614, 11, 0, 196615, 1, 0, 196616, 11, 0, 196617, 1, 0, 196618, 11, 0, 196619, 11, 0, 196620, 1, 0, 196621, 1, 0, 262144, 1, 0, 262145, 5, 0, 262146, 11, 0, 262147, 1, 0, 262148, 11, 0, 262149, 5, 0, 262150, 1, 0, 262151, 11, 0, 262152, 1, 0, 262153, 5, 0, 262154, 1, 0, 262155, 11, 0, 262156, 5, 0, 262157, 1, 0, 327680, 1, 0, 327681, 1, 0, 327682, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327691, 1, 0, 327692, 14, 0, 327693, 2, 0, 327694, 14, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 9, 0, 393229, 4, 0, 393230, 4, 0, 393231, 0, 0 )
