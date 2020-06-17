@@ -1,13 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/skeleton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/torch.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=5]
-[ext_resource path="res://assets/tilesets/level/06castle2.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/music/level/06castle2.wav" type="AudioStream" id=6]
+[ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=7]
 
 [node name="Node" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2( 20, 20 )
+transform = Transform2D( 1, 0, 0, 1, 20, 20 )
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource( 7 )]
 
 [node name="Terrain" type="TileMap" parent="."]
 scale = Vector2( 4, 4 )
@@ -50,13 +57,13 @@ position = Vector2( 1509.52, 363.586 )
 scale = Vector2( 4, 4 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 133.989, 451.072 )
+position = Vector2( 128, 464 )
 scale = Vector2( 4, 4 )
 z_index = 1
 run_speed = 400
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
-position = Vector2( 966.138, 248.817 )
+position = Vector2( 937.51, 481.888 )
 scale = Vector2( 4, 4 )
 z_index = 1
 
@@ -72,7 +79,7 @@ smoothing_enabled = true
 smoothing_speed = 10.0
 script = ExtResource( 5 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -9.087
 autoplay = true
