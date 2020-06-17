@@ -1,24 +1,17 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/tilesets/level/terrain.png" type="Texture" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/Enemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/Enemy.gd" type="Script" id=4]
+[ext_resource path="res://scenes/skeleton.tscn" type="PackedScene" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
-
-[sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 0.837585, 7.06851, 2.07079, 5.96511, 12.91, 5.8353, 14.9221, 8.1719, 14.987, 14.9221, 4.01795, 14.9221, 0.902493, 11.7417 )
-
 [sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 0.902493, 7.0677, 2.2006, 5.8345, 12.7153, 5.8994, 14.9221, 8.04128, 14.987, 14.9213, 3.95305, 14.7914, 0.967396, 11.676 )
+points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
 
 [sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
+points = PoolVector2Array( 0.9674, 6.97196, 2.07079, 5.99838, 12.91, 5.99838, 14.987, 8.20516, 14.987, 14.6957, 4.01795, 14.8904, 1.09721, 11.775 )
 
 [sub_resource type="OccluderPolygon2D" id=6]
 polygon = PoolVector2Array( 0, 0, 16, 0, 16, 16, 0, 16 )
@@ -185,14 +178,13 @@ points = PoolVector2Array( 0.9674, 6.97196, 2.07079, 5.99838, 12.91, 5.99838, 14
 10/navigation_offset = Vector2( 0, 0 )
 10/shape_offset = Vector2( 0, 0 )
 10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-10/shape = SubResource( 2 )
 10/shape_one_way = false
 10/shape_one_way_margin = 1.0
 10/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": null,
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 10/z_index = 0
@@ -220,14 +212,13 @@ points = PoolVector2Array( 0.9674, 6.97196, 2.07079, 5.99838, 12.91, 5.99838, 14
 12/navigation_offset = Vector2( 0, 0 )
 12/shape_offset = Vector2( 0, 0 )
 12/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-12/shape = SubResource( 3 )
 12/shape_one_way = false
 12/shape_one_way_margin = 1.0
 12/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": null,
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 12/z_index = 0
@@ -306,7 +297,5 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 
 position = Vector2( 42.0465, 45.5794 )
 run_speed = 400
 
-[node name="Enemy" parent="." instance=ExtResource( 3 )]
-position = Vector2( 269.955, -280.389 )
-collision/safe_margin = 0.001
-script = ExtResource( 4 )
+[node name="skeleton" parent="." instance=ExtResource( 3 )]
+position = Vector2( 93.7682, 61.6832 )
