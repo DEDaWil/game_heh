@@ -27,7 +27,7 @@ position = Vector2( 463.059, 167.371 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 5
-frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "torch"
 anims/torch = SubResource( 1 )
