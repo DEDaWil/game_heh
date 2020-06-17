@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/skeleton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/torch.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=5]
+[ext_resource path="res://assets/tilesets/level/06castle2.wav" type="AudioStream" id=6]
 
 [node name="Node" type="Node"]
 
@@ -63,3 +64,8 @@ z_index = 1
 position = Vector2( 487.125, 381.728 )
 current = true
 script = ExtResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -9.087
+autoplay = true
