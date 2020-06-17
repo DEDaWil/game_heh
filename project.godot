@@ -19,6 +19,11 @@ config/name="game_heh"
 run/main_scene="res://scenes/world.tscn"
 config/icon="res://assets/icon/icon.png"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [input]
 
 player_right={
