@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/tilesets/enemies/Variant0/Skeleton_Walk_1.png" type="Texture" id=1]
+[ext_resource path="res://assets/tilesets/enemies/Variant0/Skeleton_Walk_3.png" type="Texture" id=2]
+[ext_resource path="res://assets/tilesets/enemies/Variant0/Skeleton_Walk_0.png" type="Texture" id=3]
+[ext_resource path="res://assets/tilesets/enemies/Variant0/Skeleton_Walk_2.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 21.6011, 33.7689 )
+
+[node name="Enemy" type="KinematicBody2D"]
+position = Vector2( 494.445, -63.7545 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 3.58645, 361.317 )
+scale = Vector2( 0.838561, 0.74979 )
+frames = SubResource( 1 )
+animation = "Walk"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 8.34436, 388.475 )
+shape = SubResource( 2 )
