@@ -4,12 +4,9 @@ extends KinematicBody2D
 export (int) var run_speed = 100
 export (int) var gravity = 1200
 export (int) var jump = 500
+
 # vars
 var velocity = Vector2()
-
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-#	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -29,7 +26,8 @@ func _physics_process(delta):
 		else:
 			$Animations.play("Idle")
 			velocity.x = 0
-	if Input.is_action_pressed("player_up")&& is_on_floor():
+			
+	if Input.is_action_pressed("player_up") && is_on_floor():
 		velocity.y = -jump
 	
 	velocity.y += gravity * delta

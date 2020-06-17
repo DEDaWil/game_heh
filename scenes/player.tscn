@@ -70,7 +70,9 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 8.17684, 10.5476 )
+resource_local_to_scene = true
+custom_solver_bias = 1.0
+extents = Vector2( 10.3194, 12.1825 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 92.2597, 86.1677 )
@@ -82,7 +84,6 @@ scale = Vector2( 0.397712, 0.342731 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 8
-frame = 4
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
