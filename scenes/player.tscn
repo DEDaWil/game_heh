@@ -69,9 +69,8 @@ tracks/0/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=5]
-radius = 7.43073
-height = 5.9511
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 8.17684, 10.5476 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 92.2597, 86.1677 )
