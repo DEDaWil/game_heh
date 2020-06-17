@@ -85,4 +85,3 @@ anims/Death = SubResource( 1 )
 anims/Hit = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Run = SubResource( 4 )
-[connection signal="animation_finished" from="Animations" to="." method="_on_Animations_animation_finished"]
