@@ -22,7 +22,7 @@ config/icon="res://assets/icon/icon.png"
 [display]
 
 window/stretch/mode="viewport"
-window/stretch/aspect="keep"
+window/stretch/aspect="expand"
 
 [input]
 

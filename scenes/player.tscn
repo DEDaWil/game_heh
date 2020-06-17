@@ -72,7 +72,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 resource_local_to_scene = true
 custom_solver_bias = 1.0
-extents = Vector2( 10.3194, 12.1825 )
+extents = Vector2( 10.3194, 11.2909 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 92.2597, 86.1677 )
@@ -84,7 +84,7 @@ scale = Vector2( 0.397712, 0.342731 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 8
-frame = 7
+frame = 8
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
@@ -94,5 +94,5 @@ anims/Idle = SubResource( 3 )
 anims/Run = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 3.82814, 17.5746 )
+position = Vector2( 3.82814, 16.4732 )
 shape = SubResource( 5 )

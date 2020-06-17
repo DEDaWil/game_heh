@@ -56,13 +56,20 @@ z_index = 1
 run_speed = 400
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
-position = Vector2( 375.073, 246.733 )
+position = Vector2( 966.138, 248.817 )
 scale = Vector2( 4, 4 )
 z_index = 1
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2( 487.125, 381.728 )
+position = Vector2( 482.001, 358.99 )
 current = true
+limit_left = 0
+limit_top = 0
+limit_right = 1855
+limit_bottom = 640
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 10.0
 script = ExtResource( 5 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
