@@ -32,3 +32,7 @@ func _physics_process(delta):
 	
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
+
+func _on_Weapon_body_entered(body):
+	if "Skeleton" in body.name:
+		body.kill()

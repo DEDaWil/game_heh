@@ -1,14 +1,23 @@
 extends KinematicBody2D
 
+# export
 export (int) var speed = 200
 export (int) var gravity = 500
 
+# vars
 var velocity = Vector2()
 var direction = 1
+var alive = true
+
+func kill():
+	alive = false
+	velocity.x = 0
+	$Animation.play("Death")
 
 func _physics_process(delta):
-	velocity.x = speed * direction
-	$AnimationPlayer.play("walk")
+	if alive == true:
+		velocity.x = speed * direction
+		$Animation.play("Walk")
 	velocity.y += (gravity * delta)
 	velocity = move_and_slide(velocity, Vector2(0,-1))
 	if is_on_wall():
