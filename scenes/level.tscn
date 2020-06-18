@@ -7,11 +7,11 @@
 [ext_resource path="res://scripts/camera.gd" type="Script" id=5]
 [ext_resource path="res://assets/audio/music/level/06castle2.wav" type="AudioStream" id=6]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=7]
-[ext_resource path="res://assets/images/background/parallax-mountain-montain-far.png" type="Texture" id=8]
-[ext_resource path="res://assets/images/background/parallax-mountain-bg.png" type="Texture" id=9]
-[ext_resource path="res://assets/images/background/parallax-mountain-foreground-trees.png" type="Texture" id=10]
-[ext_resource path="res://assets/images/background/parallax-mountain-trees.png" type="Texture" id=11]
-[ext_resource path="res://assets/images/background/parallax-mountain-mountains.png" type="Texture" id=12]
+[ext_resource path="res://assets/images/background/Hills.png" type="Texture" id=8]
+[ext_resource path="res://assets/images/background/background_1.png" type="Texture" id=9]
+[ext_resource path="res://assets/images/background/trees.png" type="Texture" id=10]
+[ext_resource path="res://assets/images/background/Forest.png" type="Texture" id=11]
+[ext_resource path="res://assets/images/background/Mountain.png" type="Texture" id=12]
 
 [node name="Node" type="Node"]
 
