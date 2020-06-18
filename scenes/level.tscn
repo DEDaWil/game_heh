@@ -37,7 +37,7 @@ scale = Vector2( 4.77435, 1.98164 )
 texture = ExtResource( 8 )
 
 [node name="Mountain" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.008, 1 )
+motion_scale = Vector2( 0.015, 1 )
 motion_mirroring = Vector2( 800, 0 )
 
 [node name="mountain" type="Sprite" parent="ParallaxBackground/Mountain"]
@@ -46,7 +46,7 @@ scale = Vector2( 1.74064, 1.49915 )
 texture = ExtResource( 12 )
 
 [node name="Forest" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.007, 1 )
+motion_scale = Vector2( 0.1, 1 )
 motion_mirroring = Vector2( 540, 0 )
 
 [node name="Forest" type="Sprite" parent="ParallaxBackground/Forest"]
@@ -54,15 +54,14 @@ position = Vector2( 648.59, 497.714 )
 scale = Vector2( 2.21517, 1 )
 texture = ExtResource( 11 )
 
-[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground/Forest"]
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
 position = Vector2( 255.538, 480.021 )
-motion_scale = Vector2( 0.005, 0 )
-motion_offset = Vector2( 0, 200 )
+motion_scale = Vector2( 0.15, 1 )
 motion_mirroring = Vector2( 544, 0 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Forest/Trees"]
-position = Vector2( -16.5807, 6.783 )
-scale = Vector2( 0.939041, 1.08479 )
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/Trees"]
+position = Vector2( 376.515, 6.783 )
+scale = Vector2( 2.38425, 1.08479 )
 texture = ExtResource( 10 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
