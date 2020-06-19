@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const constants = preload("res://scripts/core/consts.gd");
+const Consts = preload("res://scripts/core/consts.gd");
 
 # signals
 signal death
@@ -13,16 +13,15 @@ export (int) var health = 5
 
 # vars
 var velocity = Vector2()
-var direction = 1
+var direction = Consts.Direction.Left
+var attackedDirection = Consts.Direction.Left
 
 func _ready():
-	emit_signal("health_change")
+	$HealthBar.value = health
 
 func _physics_process(delta):
 	if health > 0:
-		if $Animation.current_animation == "TakingDamage":
-			print ("0")
-		elif is_on_floor():
+		if is_on_floor():
 			velocity.x = speed * direction
 			$Animation.play("Walk")
 	velocity.y += (gravity * delta)
@@ -35,13 +34,12 @@ func change_direction():
 	$Sprite.flip_h = !$Sprite.flip_h
 
 func take_damage(damage, _direction):
-	velocity.x = speed * _direction
-	velocity.y = -200
+	attackedDirection = _direction
 	health -= damage
 	emit_signal("health_change")
 
 func _on_skeleton_death():
-	set_collision_layer_bit(constants.Layers.Enemy, false)
+	set_collision_layer_bit(Consts.Layers.Enemy, false)
 	velocity.x = 0
 	$Animation.play("Death")
 
@@ -53,4 +51,7 @@ func _on_skeleton_health_change():
 	else:
 		$Animation.stop()
 		$Animation.play("TakingDamage")
+		velocity.x = speed * attackedDirection
+		velocity.y = -200
+		velocity = move_and_slide(velocity, Vector2(0,-1))
 	$HealthBar.value = health
