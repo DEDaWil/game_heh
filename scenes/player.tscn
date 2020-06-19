@@ -98,7 +98,7 @@ scale = Vector2( 0.397712, 0.342731 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 8
-frame = 2
+frame = 8
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 autoplay = "Idle"

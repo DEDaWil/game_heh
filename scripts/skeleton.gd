@@ -7,7 +7,7 @@ signal death
 signal health_change
 
 # export
-export (int) var speed = 200
+export (int) var speed = 100
 export (int) var gravity = 1200
 export (int) var health = 5
 
@@ -22,6 +22,8 @@ func _ready():
 func _physics_process(delta):
 	if health > 0:
 		if is_on_floor():
+			velocity.x = 0
+		if is_on_floor() && $Animation.current_animation != "TakingDamage":
 			velocity.x = speed * direction
 			$Animation.play("Walk")
 	velocity.y += (gravity * delta)
