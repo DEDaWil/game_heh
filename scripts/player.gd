@@ -4,29 +4,26 @@ extends KinematicBody2D
 export (int) var run_speed = 100
 export (int) var gravity = 1200
 export (int) var jump = 500
+export (int) var damage = 1
 
 # vars
 var velocity = Vector2()
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$Weapon/CollisionShape2D.disabled = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	if Input.is_action_just_pressed("player_hit"):
 		$Animations.play("Hit")
 		velocity.x = 0
-	
+				
 	if $Animations.current_animation != "Hit":
 		if Input.is_action_pressed("player_right"):
 			$Animations.play("Run")
-			$Weapon/CollisionShape2D.position.x = abs($Weapon/CollisionShape2D.position.x)
+			$RayCast2D.cast_to.x = abs($RayCast2D.cast_to.x)
 			$Sprite.flip_h = false
 			velocity.x = run_speed
 		elif Input.is_action_pressed("player_left"):
 			$Animations.play("Run")
-			$Weapon/CollisionShape2D.position.x = abs($Weapon/CollisionShape2D.position.x) * -1
+			$RayCast2D.cast_to.x = -1 * abs($RayCast2D.cast_to.x)
 			$Sprite.flip_h = true
 			velocity.x = -run_speed
 		else:
@@ -39,9 +36,12 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
-func _on_Weapon_body_entered(body):
-	if body.has_method("kill"):
-		if body.health > 0:
-			body.health -= 1
-			if body.health <= 0:
-				body.kill()
+	detect_weapon_raycasting()
+
+func detect_weapon_raycasting():
+	if $RayCast2D.enabled:
+		var target = $RayCast2D.get_collider()
+		if target != null:
+			if target.has_method("take_damage"):
+				target.take_damage(damage)
+				$RayCast2D.enabled = false

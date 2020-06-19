@@ -1,5 +1,9 @@
 extends KinematicBody2D
 
+# signals
+signal death
+signal health_change
+
 # export
 export (int) var speed = 200
 export (int) var gravity = 500
@@ -9,10 +13,8 @@ export (int) var health = 2
 var velocity = Vector2()
 var direction = 1
 
-func kill():
-	velocity.x = 0
-	$CollisionShape2D.disabled = true #проблемес
-	$Animation.play("Death")
+func _ready():
+	emit_signal("health_change")
 
 func _physics_process(delta):
 	if health > 0:
@@ -26,3 +28,19 @@ func _physics_process(delta):
 func change_direction():
 	direction *= -1
 	$Sprite.flip_h = !$Sprite.flip_h
+
+func take_damage(damage):
+	health -= damage
+	emit_signal("health_change")
+	if health <= 0:
+		health = 0
+		emit_signal("death")
+
+func _on_skeleton_death():
+	velocity.x = 0
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Animation.play("Death")
+
+
+func _on_skeleton_health_change():
+	$HealthBar.value = health
