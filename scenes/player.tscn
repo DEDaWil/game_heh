@@ -88,6 +88,8 @@ extents = Vector2( 11.1305, 14.9185 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 92.2597, 86.1677 )
+collision_layer = 2
+collision_mask = 17
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -112,3 +114,5 @@ shape = SubResource( 5 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 0, 14 )
 cast_to = Vector2( 24, 0 )
+collision_mask = 16
+collide_with_areas = true
