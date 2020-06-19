@@ -23,7 +23,7 @@ func _physics_process(delta):
 	if health > 0:
 		if is_on_floor():
 			velocity.x = 0
-		if is_on_floor() && $Animation.current_animation != "TakingDamage":
+		if is_on_floor() && ($Animation.current_animation == "Walk" || $Animation.current_animation == ""):
 			velocity.x = speed * direction
 			$Animation.play("Walk")
 	velocity.y += (gravity * delta)
@@ -34,6 +34,7 @@ func _physics_process(delta):
 func change_direction():
 	direction *= -1
 	$Sprite.flip_h = !$Sprite.flip_h
+	$AttackSprite.flip_h = !$AttackSprite.flip_h
 
 func take_damage(damage, _direction):
 	attackedDirection = _direction
@@ -57,3 +58,7 @@ func _on_skeleton_health_change():
 		velocity.y = -200
 		velocity = move_and_slide(velocity, Vector2(0,-1))
 	$HealthBar.value = health
+
+
+func _on_AutoAttack_timeout():
+	$Animation.play("Attack_" + String((randi() % 2) + 1))
