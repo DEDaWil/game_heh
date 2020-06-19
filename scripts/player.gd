@@ -41,6 +41,7 @@ func _physics_process(delta):
 
 func _on_Weapon_body_entered(body):
 	if body.has_method("kill"):
-		body.health -= 1
-		if body.health <= 0:
-			body.kill()
+		if body.health > 0:
+			body.health -= 1
+			if body.health <= 0:
+				body.kill()

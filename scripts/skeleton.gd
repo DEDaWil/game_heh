@@ -11,14 +11,15 @@ var direction = 1
 
 func kill():
 	velocity.x = 0
+	$CollisionShape2D.disabled = true #проблемес
 	$Animation.play("Death")
 
 func _physics_process(delta):
-	if health >= 1:
+	if health > 0:
 		velocity.x = speed * direction
 		$Animation.play("Walk")
 	velocity.y += (gravity * delta)
-	#velocity = move_and_slide(velocity, Vector2(0,-1))
+	velocity = move_and_slide(velocity, Vector2(0,-1))
 	if is_on_wall():
 		change_direction()
 

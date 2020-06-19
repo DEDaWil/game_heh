@@ -117,5 +117,4 @@ shape = SubResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
 position = Vector2( 22.6494, 14.2847 )
 shape = SubResource( 6 )
-[connection signal="script_changed" from="." to="." method="_on_Player_script_changed"]
 [connection signal="body_entered" from="Weapon" to="." method="_on_Weapon_body_entered"]
