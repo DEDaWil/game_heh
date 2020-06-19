@@ -6,8 +6,8 @@ signal health_change
 
 # export
 export (int) var speed = 200
-export (int) var gravity = 500
-export (int) var health = 2
+export (int) var gravity = 1200
+export (int) var health = 5
 
 # vars
 var velocity = Vector2()
@@ -18,8 +18,13 @@ func _ready():
 
 func _physics_process(delta):
 	if health > 0:
-		velocity.x = speed * direction
-		$Animation.play("Walk")
+		if $Animation.current_animation == "TakingDamage":
+			velocity.x = 100 * direction
+			if is_on_floor():
+				velocity.y = -200
+		else:
+			velocity.x = speed * direction
+			$Animation.play("Walk")
 	velocity.y += (gravity * delta)
 	velocity = move_and_slide(velocity, Vector2(0,-1))
 	if is_on_wall():
@@ -30,6 +35,7 @@ func change_direction():
 	$Sprite.flip_h = !$Sprite.flip_h
 
 func take_damage(damage):
+	$Animation.play("TakingDamage")
 	health -= damage
 	emit_signal("health_change")
 	if health <= 0:

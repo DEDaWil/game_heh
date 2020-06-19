@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/tilesets/enemies/skeleton.png" type="Texture" id=1]
 [ext_resource path="res://scripts/skeleton.gd" type="Script" id=2]
@@ -20,9 +20,37 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("CollisionWhenDead:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=2]
-resource_name = "Walk"
+resource_name = "TakingDamage"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.235294 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.235294 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -37,8 +65,11 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7 ]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 7.83157, 11.8287 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 6.96653, 0.0774155 )
 
 [node name="skeleton" type="KinematicBody2D"]
 position = Vector2( 7.02469, 11.3476 )
@@ -48,15 +79,16 @@ script = ExtResource( 2 )
 scale = Vector2( 0.291809, 0.291809 )
 texture = ExtResource( 1 )
 hframes = 8
-frame = 7
+frame = 4
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/Death = SubResource( 1 )
-anims/Walk = SubResource( 2 )
+anims/TakingDamage = SubResource( 2 )
+anims/Walk = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1.17577, 11.4552 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -7.0
@@ -71,5 +103,9 @@ nine_patch_stretch = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CollisionWhenDead" type="CollisionShape2D" parent="."]
+position = Vector2( 1.10482, 23.2098 )
+shape = SubResource( 5 )
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]
