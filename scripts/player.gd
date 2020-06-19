@@ -1,13 +1,19 @@
 extends KinematicBody2D
 
+signal update_hud(health)
+
 # export
 export (int) var run_speed = 100
 export (int) var gravity = 1200
 export (int) var jump = 500
 export (int) var damage = 1
+export (int) var health = 3
 
 # vars
 var velocity = Vector2()
+
+func _ready():
+	emit_signal("update_hud", health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):

@@ -137,3 +137,4 @@ script = ExtResource( 5 )
 stream = ExtResource( 6 )
 volume_db = -10.687
 autoplay = true
+[connection signal="update_hud" from="Player" to="CanvasLayer/HUD" method="_on_Player_update_hud"]
