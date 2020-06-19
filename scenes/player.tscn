@@ -80,26 +80,14 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 12, 13, 14, 15 ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:shape:extents")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.15, 0.3, 0.45 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 11.1305, 14.9185 ), Vector2( 6.5549, 12.5518 ), Vector2( 11.2883, 15.3919 ), Vector2( 7.3438, 13.3407 ) ]
-}
 
 [sub_resource type="RectangleShape2D" id=5]
 resource_local_to_scene = true
 custom_solver_bias = 1.0
-extents = Vector2( 7.3438, 13.3407 )
+extents = Vector2( 11.1305, 14.9185 )
 
-[sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 9.00716, 4.21481 )
+[sub_resource type="ConvexPolygonShape2D" id=6]
+points = PoolVector2Array( 0, -3, 8, -3, 9.7, -0.3, -12, 5.3 )
 
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 92.2597, 86.1677 )
@@ -111,7 +99,7 @@ scale = Vector2( 0.397712, 0.342731 )
 texture = ExtResource( 1 )
 vframes = 2
 hframes = 8
-frame = 15
+frame = 2
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
@@ -127,7 +115,7 @@ shape = SubResource( 5 )
 [node name="Weapon" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Weapon"]
-position = Vector2( 21.5842, 15.5886 )
+position = Vector2( 22.6494, 14.2847 )
 shape = SubResource( 6 )
 [connection signal="script_changed" from="." to="." method="_on_Player_script_changed"]
 [connection signal="body_entered" from="Weapon" to="." method="_on_Weapon_body_entered"]
