@@ -34,7 +34,7 @@ func _physics_process(delta):
 func change_direction():
 	direction *= -1
 	$Sprite.flip_h = !$Sprite.flip_h
-	$AttackSprite.flip_h = !$AttackSprite.flip_h
+	#$AttackSprite.flip_h = !$AttackSprite.flip_h
 
 func take_damage(damage, _direction):
 	attackedDirection = _direction
@@ -52,7 +52,6 @@ func _on_skeleton_health_change():
 		health = 0
 		emit_signal("death")
 	else:
-		$Animation.stop()
 		$Animation.play("TakingDamage")
 		velocity.x = speed * attackedDirection
 		velocity.y = -200
@@ -61,4 +60,5 @@ func _on_skeleton_health_change():
 
 
 func _on_AutoAttack_timeout():
-	$Animation.play("Attack_" + String((randi() % 2) + 1))
+	if health > 0:
+		$Animation.play("Attack_" + String((randi() % 2) + 1))
