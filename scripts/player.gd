@@ -12,10 +12,16 @@ export (int) var jump = 500
 export (int) var damage = 1
 export (int) var health = 3
 
+# onready
+onready var Sprite: Sprite = get_node("Sprite")
+onready var Animations: AnimationPlayer = get_node("Animations")
+onready var AttackArea: RayCast2D = get_node("AttackRaycast")
+
 # vars
 var velocity = Vector2()
 var direction = Consts.Direction.Left
 var state = Consts.BodyState.Idle
+var attackedDirection = Consts.Direction.Left
 
 func _ready():
 	emit_signal("update_hud", health)
@@ -23,8 +29,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	_process_input()
+	_process_raycasting()
 	_process_state()
-	detect_weapon_raycasting()
 
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
@@ -48,10 +54,10 @@ func _process_input():
 func _process_state():
 	match state:
 		Consts.BodyState.Attack:
-			$Animations.play("Attack")
+			Animations.play("Attack")
 			velocity.x = 0
 		Consts.BodyState.Idle:
-			$Animations.play("Idle")
+			Animations.play("Idle")
 			velocity.x = 0
 		Consts.BodyState.Jump:
 			velocity.y = -jump
@@ -59,19 +65,26 @@ func _process_state():
 			run()
 
 func run():
-	$Animations.play("Run")
-	$RayCast2D.cast_to.x = direction * abs($RayCast2D.cast_to.x)
-	$Sprite.flip_h = direction == -1
+	Animations.play("Run")
+	AttackArea.cast_to.x = direction * abs(AttackArea.cast_to.x)
+	Sprite.flip_h = direction == -1
 	velocity.x = direction * run_speed
 
-func detect_weapon_raycasting():
-	if $RayCast2D.enabled:
-		var target = $RayCast2D.get_collider()
+func take_damage(damage: int, _direction):
+	attackedDirection = _direction
+	health -= damage
+	if health <= 0:
+		health = 0
+	emit_signal("update_hud", health)
+
+func _process_raycasting():
+	if AttackArea.enabled:
+		var target = AttackArea.get_collider()
 		if target != null:
 			if target.has_method("take_damage"):
 				target.take_damage(damage, direction)
-				$RayCast2D.enabled = false
+				AttackArea.enabled = false
 
-func _on_Animations_animation_finished(anim_name):
+func _on_Animations_animation_finished(anim_name: String):
 	if anim_name == "Attack":
 		state = Consts.BodyState.Idle

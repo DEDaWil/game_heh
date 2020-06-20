@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/tilesets/HUD/health_full.png" type="Texture" id=4]
 [ext_resource path="res://assets/tilesets/enemies/skeleton/skeleton_attack.png" type="Texture" id=5]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "Attack_1"
 length = 0.6
 tracks/0/type = "value"
@@ -45,8 +45,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackRaycast:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=2]
 resource_name = "Attack_2"
 length = 0.6
 tracks/0/type = "value"
@@ -85,9 +97,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("AttackRaycast:enabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
 
-[sub_resource type="Animation" id=1]
-resource_name = "Death"
+[sub_resource type="Animation" id=3]
 length = 0.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -102,8 +125,7 @@ tracks/0/keys = {
 "values": [ 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "TakingDamage"
+[sub_resource type="Animation" id=4]
 length = 1.05
 step = 0.05
 tracks/0/type = "value"
@@ -131,7 +153,7 @@ tracks/1/keys = {
 "values": [ 14, 15, 16 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 length = 1.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:frame")
@@ -146,7 +168,7 @@ tracks/0/keys = {
 "values": [ 34, 35, 36, 37, 38, 39 ]
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 8.92072, 14.8258 )
 
 [node name="skeleton" type="KinematicBody2D"]
@@ -167,18 +189,18 @@ position = Vector2( 10.1503, -8.33089 )
 texture = ExtResource( 5 )
 vframes = 6
 hframes = 2
-frame = 5
+frame = 11
 
 [node name="Animations" type="AnimationPlayer" parent="."]
-anims/Attack_1 = SubResource( 5 )
-anims/Attack_2 = SubResource( 6 )
-anims/Death = SubResource( 1 )
-anims/TakingDamage = SubResource( 2 )
-anims/Walk = SubResource( 3 )
+anims/Attack_1 = SubResource( 1 )
+anims/Attack_2 = SubResource( 2 )
+anims/Death = SubResource( 3 )
+anims/TakingDamage = SubResource( 4 )
+anims/Walk = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.722744, 4.23771 )
-shape = SubResource( 4 )
+position = Vector2( -0.722744, 3.23622 )
+shape = SubResource( 6 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -9.01091
@@ -197,6 +219,10 @@ __meta__ = {
 [node name="AutoAttack" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[node name="AttackRaycast" type="RayCast2D" parent="."]
+cast_to = Vector2( 32, 0 )
+collision_mask = 2
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]
 [connection signal="animation_finished" from="Animations" to="." method="_on_Animations_animation_finished"]
