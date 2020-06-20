@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
-var Consts = preload("res://scripts/core/consts.gd")
+const Consts = preload("res://scripts/core/consts.gd")
 
+# signals
 signal update_hud(health)
 
 # export
@@ -14,35 +15,50 @@ export (int) var health = 3
 # vars
 var velocity = Vector2()
 var direction = Consts.Direction.Left
+var state = Consts.BodyState.Idle
 
 func _ready():
 	emit_signal("update_hud", health)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Input.is_action_just_pressed("player_hit"):
-		$Animations.play("Hit")
-		velocity.x = 0
-
-	if $Animations.current_animation != "Hit":
-		if Input.is_action_pressed("player_right"):
-			run(Consts.Direction.Left)
-		elif Input.is_action_pressed("player_left"):
-			run(Consts.Direction.Right)
-		else:
-			$Animations.play("Idle")
-			velocity.x = 0
-			
-		if Input.is_action_pressed("player_up") && is_on_floor():
-			velocity.y = -jump
+	_process_input()
+	_process_state()
+	detect_weapon_raycasting()
 
 	velocity.y += gravity * delta
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
-	detect_weapon_raycasting()
+func _process_input():
+	if Input.is_action_just_pressed("player_hit") && is_on_floor():
+		state = Consts.BodyState.Attack
 
-func run(_direction):
-	direction = _direction
+	if state != Consts.BodyState.Attack:
+		if Input.is_action_pressed("player_right"):
+			state = Consts.BodyState.Move
+			direction = Consts.Direction.Right
+		elif Input.is_action_pressed("player_left"):
+			state = Consts.BodyState.Move
+			direction = Consts.Direction.Left
+		else:
+			state = Consts.BodyState.Idle
+		if Input.is_action_pressed("player_up") && is_on_floor():
+			state = Consts.BodyState.Jump
+
+func _process_state():
+	match state:
+		Consts.BodyState.Attack:
+			$Animations.play("Attack")
+			velocity.x = 0
+		Consts.BodyState.Idle:
+			$Animations.play("Idle")
+			velocity.x = 0
+		Consts.BodyState.Jump:
+			velocity.y = -jump
+		Consts.BodyState.Move:
+			run()
+
+func run():
 	$Animations.play("Run")
 	$RayCast2D.cast_to.x = direction * abs($RayCast2D.cast_to.x)
 	$Sprite.flip_h = direction == -1
@@ -55,3 +71,7 @@ func detect_weapon_raycasting():
 			if target.has_method("take_damage"):
 				target.take_damage(damage, direction)
 				$RayCast2D.enabled = false
+
+func _on_Animations_animation_finished(anim_name):
+	if anim_name == "Attack":
+		state = Consts.BodyState.Idle

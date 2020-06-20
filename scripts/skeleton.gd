@@ -15,26 +15,50 @@ export (int) var health = 5
 var velocity = Vector2()
 var direction = Consts.Direction.Left
 var attackedDirection = Consts.Direction.Left
+var state = Consts.BodyState.Idle
 
 func _ready():
 	$HealthBar.value = health
 
 func _physics_process(delta):
-	if health > 0:
-		if is_on_floor():
-			velocity.x = 0
-		if is_on_floor() && ($Animation.current_animation == "Walk" || $Animation.current_animation == ""):
-			velocity.x = speed * direction
-			$Animation.play("Walk")
+	_process_AI()
+	_process_state()
+
 	velocity.y += (gravity * delta)
 	velocity = move_and_slide(velocity, Vector2(0,-1))
-	if is_on_wall() && is_on_floor():
-		change_direction()
 
-func change_direction():
-	direction *= -1
-	$Sprite.flip_h = !$Sprite.flip_h
-	#$AttackSprite.flip_h = !$AttackSprite.flip_h
+func _process_AI():
+	if health > 0 && (state == Consts.BodyState.Move || state == Consts.BodyState.Idle):
+		if is_on_floor():
+			state = Consts.BodyState.Move
+			if is_on_wall():
+				direction *= -1
+
+func _process_state():
+	match state:
+		Consts.BodyState.None:
+			if is_on_floor():
+				velocity.x = 0
+		Consts.BodyState.Attack:
+			$Animations.play("Attack_" + String((randi() % 2) + 1))
+			velocity.x = 0
+			state = Consts.BodyState.None
+		Consts.BodyState.Idle:
+			#$Animations.play("Idle")
+			velocity.x = 0
+		Consts.BodyState.TakeDamage:
+			$Animations.play("TakingDamage")
+			velocity.x = speed * attackedDirection
+			velocity.y = -200
+			state = Consts.BodyState.None
+		Consts.BodyState.Death:
+			$Animations.play("Death")
+			velocity.x = 0
+			state = Consts.BodyState.Dead
+		Consts.BodyState.Move:
+			$Animations.play("Walk")
+			$Sprite.flip_h = direction == Consts.Direction.Left
+			velocity.x = direction * speed
 
 func take_damage(damage, _direction):
 	attackedDirection = _direction
@@ -43,22 +67,20 @@ func take_damage(damage, _direction):
 
 func _on_skeleton_death():
 	set_collision_layer_bit(Consts.Layers.Enemy, false)
-	velocity.x = 0
-	$Animation.play("Death")
-
+	state = Consts.BodyState.Death
 
 func _on_skeleton_health_change():
 	if health <= 0:
 		health = 0
 		emit_signal("death")
 	else:
-		$Animation.play("TakingDamage")
-		velocity.x = speed * attackedDirection
-		velocity.y = -200
-		velocity = move_and_slide(velocity, Vector2(0,-1))
+		state = Consts.BodyState.TakeDamage
 	$HealthBar.value = health
 
-
 func _on_AutoAttack_timeout():
-	if health > 0:
-		$Animation.play("Attack_" + String((randi() % 2) + 1))
+	if state == Consts.BodyState.Move:
+		state = Consts.BodyState.Attack
+
+func _on_Animations_animation_finished(anim_name: String):
+	if anim_name.begins_with("Attack") || anim_name == "TakingDamage":
+		state = Consts.BodyState.Idle

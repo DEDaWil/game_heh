@@ -159,7 +159,7 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 vframes = 8
 hframes = 5
-frame = 16
+frame = 14
 
 [node name="AttackSprite" type="Sprite" parent="."]
 visible = false
@@ -167,8 +167,9 @@ position = Vector2( 10.1503, -8.33089 )
 texture = ExtResource( 5 )
 vframes = 6
 hframes = 2
+frame = 5
 
-[node name="Animation" type="AnimationPlayer" parent="."]
+[node name="Animations" type="AnimationPlayer" parent="."]
 anims/Attack_1 = SubResource( 5 )
 anims/Attack_2 = SubResource( 6 )
 anims/Death = SubResource( 1 )
@@ -176,7 +177,7 @@ anims/TakingDamage = SubResource( 2 )
 anims/Walk = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.946644, 3.31357 )
+position = Vector2( -0.722744, 4.23771 )
 shape = SubResource( 4 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
@@ -198,4 +199,5 @@ wait_time = 3.0
 autostart = true
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]
+[connection signal="animation_finished" from="Animations" to="." method="_on_Animations_animation_finished"]
 [connection signal="timeout" from="AutoAttack" to="." method="_on_AutoAttack_timeout"]
