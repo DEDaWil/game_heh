@@ -132,7 +132,7 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 vframes = 10
 hframes = 5
-frame = 49
+frame = 46
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 anims/Attack_1 = SubResource( 1 )
@@ -166,6 +166,12 @@ collision_mask = 2
 [node name="StartToAttack" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 10, 0 )
+collision_mask = 2
+
+[node name="BackVisibility" type="RayCast2D" parent="."]
+rotation = 3.14159
+enabled = true
+cast_to = Vector2( 20, 0 )
 collision_mask = 2
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]

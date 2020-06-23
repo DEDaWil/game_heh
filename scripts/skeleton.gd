@@ -18,6 +18,7 @@ onready var Animations: AnimationPlayer = get_node("Animations")
 onready var HealthBar: TextureProgress = get_node("HealthBar")
 onready var AreaOfDamage: RayCast2D = get_node("AreaOfDamage")
 onready var StartToAttack: RayCast2D = get_node("StartToAttack")
+onready var BackVisibility: RayCast2D = get_node("BackVisibility")
 
 # vars
 var velocity = Vector2()
@@ -41,9 +42,7 @@ func _process_AI():
 		if is_on_floor():
 			state = Consts.BodyState.Move
 			if is_on_wall():
-				direction *= -1
-				AreaOfDamage.cast_to.x = direction * abs(AreaOfDamage.cast_to.x)
-				StartToAttack.cast_to.x = direction * abs(StartToAttack.cast_to.x)
+				change_direction()
 
 func _process_state():
 	match state:
@@ -78,15 +77,26 @@ func _process_raycasting():
 			if target.has_method("take_damage"):
 				target.take_damage(damage, direction)
 				AreaOfDamage.enabled = false
-	if StartToAttack.enabled:
-		var target = StartToAttack.get_collider()
-		if target != null && state == Consts.BodyState.Move:
-			state = Consts.BodyState.Attack
+	if StartToAttack.is_colliding() && state == Consts.BodyState.Move:
+		state = Consts.BodyState.Attack
+	if BackVisibility.is_colliding() && state == Consts.BodyState.Move:
+		change_direction()
 
-func take_damage(damage: int, _direction):
+func take_damage(_damage: int, _direction):
 	attackedDirection = _direction
-	health -= damage
+	health -= _damage
 	emit_signal("health_change")
+
+func change_direction():
+	direction *= -1
+	if direction == Consts.Direction.Left:
+		AreaOfDamage.rotation_degrees = 180
+		StartToAttack.rotation_degrees = 180
+		BackVisibility.rotation_degrees = 0
+	elif direction == Consts.Direction.Right:
+		AreaOfDamage.rotation_degrees = 0
+		StartToAttack.rotation_degrees = 0
+		BackVisibility.rotation_degrees = 180
 
 func _on_skeleton_death():
 	set_collision_layer_bit(Consts.Layers.Enemy, false)

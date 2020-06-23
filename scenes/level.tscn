@@ -117,7 +117,7 @@ z_index = 1
 run_speed = 400
 
 [node name="Skeleton" parent="." instance=ExtResource( 3 )]
-position = Vector2( 783.349, 277.86 )
+position = Vector2( 1490.92, 489.205 )
 scale = Vector2( 4, 4 )
 z_index = 1
 
