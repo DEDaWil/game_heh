@@ -16,7 +16,8 @@ export (int) var damage = 1
 onready var Sprite: Sprite = get_node("Sprite")
 onready var Animations: AnimationPlayer = get_node("Animations")
 onready var HealthBar: TextureProgress = get_node("HealthBar")
-onready var AttackArea: RayCast2D = get_node("AttackRaycast")
+onready var AreaOfDamage: RayCast2D = get_node("AreaOfDamage")
+onready var StartToAttack: RayCast2D = get_node("StartToAttack")
 
 # vars
 var velocity = Vector2()
@@ -41,7 +42,8 @@ func _process_AI():
 			state = Consts.BodyState.Move
 			if is_on_wall():
 				direction *= -1
-				AttackArea.cast_to.x = direction * abs(AttackArea.cast_to.x)
+				AreaOfDamage.cast_to.x = direction * abs(AreaOfDamage.cast_to.x)
+				StartToAttack.cast_to.x = direction * abs(StartToAttack.cast_to.x)
 
 func _process_state():
 	match state:
@@ -70,12 +72,16 @@ func _process_state():
 			velocity.x = direction * speed
 
 func _process_raycasting():
-	if AttackArea.enabled:
-		var target = AttackArea.get_collider()
+	if AreaOfDamage.enabled:
+		var target = AreaOfDamage.get_collider()
 		if target != null:
 			if target.has_method("take_damage"):
 				target.take_damage(damage, direction)
-				AttackArea.enabled = false
+				AreaOfDamage.enabled = false
+	if StartToAttack.enabled:
+		var target = StartToAttack.get_collider()
+		if target != null && state == Consts.BodyState.Move:
+			state = Consts.BodyState.Attack
 
 func take_damage(damage: int, _direction):
 	attackedDirection = _direction
@@ -93,10 +99,6 @@ func _on_skeleton_health_change():
 	else:
 		state = Consts.BodyState.TakeDamage
 	HealthBar.value = health
-
-func _on_AutoAttack_timeout():
-	if state == Consts.BodyState.Move:
-		state = Consts.BodyState.Attack
 
 func _on_Animations_animation_finished(anim_name: String):
 	if anim_name.begins_with("Attack") || anim_name == "TakingDamage":

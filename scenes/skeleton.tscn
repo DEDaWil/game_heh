@@ -9,7 +9,7 @@
 resource_name = "Attack_1"
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("AttackRaycast:enabled")
+tracks/0/path = NodePath("AreaOfDamage:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -37,7 +37,7 @@ tracks/1/keys = {
 resource_name = "Attack_2"
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("AttackRaycast:enabled")
+tracks/0/path = NodePath("AreaOfDamage:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -159,14 +159,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AutoAttack" type="Timer" parent="."]
-wait_time = 3.0
-autostart = true
+[node name="AreaOfDamage" type="RayCast2D" parent="."]
+cast_to = Vector2( 19, 0 )
+collision_mask = 2
 
-[node name="AttackRaycast" type="RayCast2D" parent="."]
-cast_to = Vector2( 15, 0 )
+[node name="StartToAttack" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 10, 0 )
 collision_mask = 2
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]
 [connection signal="animation_finished" from="Animations" to="." method="_on_Animations_animation_finished"]
-[connection signal="timeout" from="AutoAttack" to="." method="_on_AutoAttack_timeout"]
