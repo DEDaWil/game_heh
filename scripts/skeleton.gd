@@ -41,6 +41,7 @@ func _process_AI():
 			state = Consts.BodyState.Move
 			if is_on_wall():
 				direction *= -1
+				AttackArea.cast_to.x = direction * abs(AttackArea.cast_to.x)
 
 func _process_state():
 	match state:

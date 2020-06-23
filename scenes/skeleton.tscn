@@ -164,7 +164,6 @@ wait_time = 3.0
 autostart = true
 
 [node name="AttackRaycast" type="RayCast2D" parent="."]
-enabled = true
 cast_to = Vector2( 15, 0 )
 collision_mask = 2
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
