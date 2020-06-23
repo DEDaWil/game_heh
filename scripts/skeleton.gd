@@ -20,6 +20,7 @@ onready var HealthBar: TextureProgress = get_node("HealthBar")
 onready var AreaOfDamage: RayCast2D = get_node("AreaOfDamage")
 onready var StartToAttack: RayCast2D = get_node("StartToAttack")
 onready var BackVisibility: RayCast2D = get_node("BackVisibility")
+onready var OnwardVisibility: RayCast2D = get_node("OnwardVisibility")
 
 # vars
 var velocity = Vector2()
@@ -39,9 +40,9 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0,-1))
 
 func _process_AI():
-	if health > 0 && (state == Consts.BodyState.Move || state == Consts.BodyState.Idle):
+	if health > 0 && (state == Consts.BodyState.Walk || state == Consts.BodyState.Idle):
 		if is_on_floor():
-			state = Consts.BodyState.Move
+			state = Consts.BodyState.Walk
 			if is_on_wall():
 				change_direction()
 
@@ -66,10 +67,17 @@ func _process_state():
 			Animations.play("Death")
 			velocity.x = 0
 			state = Consts.BodyState.Dead
-		Consts.BodyState.Move:
+		Consts.BodyState.Walk:
 			Animations.play("Walk")
 			Sprite.flip_h = direction == Consts.Direction.Left
 			velocity.x = direction * walk_speed
+		Consts.BodyState.Run:
+			Animations.play("Run")
+			Sprite.flip_h = direction == Consts.Direction.Left
+			velocity.x = direction * run_speed
+
+func is_moving() -> bool:
+	return state == Consts.BodyState.Walk || state == Consts.BodyState.Run
 
 func _process_raycasting():
 	if AreaOfDamage.enabled:
@@ -78,10 +86,15 @@ func _process_raycasting():
 			if target.has_method("take_damage"):
 				target.take_damage(damage, direction)
 				AreaOfDamage.enabled = false
-	if StartToAttack.is_colliding() && state == Consts.BodyState.Move:
-		state = Consts.BodyState.Attack
-	if BackVisibility.is_colliding() && state == Consts.BodyState.Move:
-		change_direction()
+	if is_moving():
+		if StartToAttack.is_colliding():
+			state = Consts.BodyState.Attack
+		elif OnwardVisibility.is_colliding():
+			state = Consts.BodyState.Run
+		elif BackVisibility.is_colliding():
+			change_direction()
+		else:
+			state = Consts.BodyState.Walk
 
 func take_damage(_damage: int, _direction):
 	attackedDirection = _direction
@@ -93,10 +106,12 @@ func change_direction():
 	if direction == Consts.Direction.Left:
 		AreaOfDamage.rotation_degrees = 180
 		StartToAttack.rotation_degrees = 180
+		OnwardVisibility.rotation_degrees = 180
 		BackVisibility.rotation_degrees = 0
 	elif direction == Consts.Direction.Right:
 		AreaOfDamage.rotation_degrees = 0
 		StartToAttack.rotation_degrees = 0
+		OnwardVisibility.rotation_degrees = 0
 		BackVisibility.rotation_degrees = 180
 
 func _on_skeleton_death():

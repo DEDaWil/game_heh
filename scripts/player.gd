@@ -43,10 +43,10 @@ func _process_input():
 
 	if state != Consts.BodyState.Attack:
 		if Input.is_action_pressed("player_right"):
-			state = Consts.BodyState.Move
+			state = Consts.BodyState.Run
 			direction = Consts.Direction.Right
 		elif Input.is_action_pressed("player_left"):
-			state = Consts.BodyState.Move
+			state = Consts.BodyState.Run
 			direction = Consts.Direction.Left
 		else:
 			state = Consts.BodyState.Idle
@@ -71,7 +71,7 @@ func _process_state():
 			velocity.x = run_speed / 2 * attackedDirection
 			velocity.y = -200
 			state = Consts.BodyState.None
-		Consts.BodyState.Move:
+		Consts.BodyState.Run:
 			run()
 
 func run():
