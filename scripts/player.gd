@@ -36,6 +36,8 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 func _process_input():
+	if state == Consts.BodyState.TakeDamage || state == Consts.BodyState.None:
+		return
 	if Input.is_action_just_pressed("player_hit") && is_on_floor():
 		state = Consts.BodyState.Attack
 
@@ -53,6 +55,10 @@ func _process_input():
 
 func _process_state():
 	match state:
+		Consts.BodyState.None:
+			if is_on_floor():
+				velocity.x = 0
+				state = Consts.BodyState.Idle
 		Consts.BodyState.Attack:
 			Animations.play("Attack")
 			velocity.x = 0
@@ -61,6 +67,10 @@ func _process_state():
 			velocity.x = 0
 		Consts.BodyState.Jump:
 			velocity.y = -jump
+		Consts.BodyState.TakeDamage:
+			velocity.x = run_speed / 2 * attackedDirection
+			velocity.y = -200
+			state = Consts.BodyState.None
 		Consts.BodyState.Move:
 			run()
 
@@ -73,6 +83,7 @@ func run():
 func take_damage(damage: int, _direction):
 	attackedDirection = _direction
 	health -= damage
+	state = Consts.BodyState.TakeDamage
 	if health <= 0:
 		health = 0
 	emit_signal("update_hud", health)
