@@ -80,9 +80,9 @@ func run():
 	Sprite.flip_h = direction == -1
 	velocity.x = direction * run_speed
 
-func take_damage(damage: int, _direction):
+func take_damage(_damage: int, _direction):
 	attackedDirection = _direction
-	health -= damage
+	health -= _damage
 	state = Consts.BodyState.TakeDamage
 	if health <= 0:
 		health = 0
