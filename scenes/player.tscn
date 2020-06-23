@@ -107,7 +107,7 @@ anims/Idle = SubResource( 3 )
 anims/Run = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.274139, 14.2643 )
+position = Vector2( -0.25177, 12.8462 )
 shape = SubResource( 5 )
 
 [node name="AttackRaycast" type="RayCast2D" parent="."]

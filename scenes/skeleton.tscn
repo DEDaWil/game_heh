@@ -1,113 +1,64 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://assets/tilesets/enemies/skeleton_new.png" type="Texture" id=1]
+[ext_resource path="res://assets/tilesets/enemies/skeleton/skeleton.png" type="Texture" id=1]
 [ext_resource path="res://scripts/skeleton.gd" type="Script" id=2]
 [ext_resource path="res://assets/tilesets/HUD/health.png" type="Texture" id=3]
 [ext_resource path="res://assets/tilesets/HUD/health_full.png" type="Texture" id=4]
-[ext_resource path="res://assets/tilesets/enemies/skeleton/skeleton_attack.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Attack_1"
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:visible")
+tracks/0/path = NodePath("AttackRaycast:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ false, true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AttackSprite:visible")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AttackSprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AttackRaycast:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3, 0.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
+"values": [ 40, 45, 41, 46, 42, 47 ]
 }
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack_2"
 length = 0.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:visible")
+tracks/0/path = NodePath("AttackRaycast:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 1,
-"values": [ false, true ]
+"values": [ false, true, false ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("AttackSprite:visible")
+tracks/1/path = NodePath("Sprite:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("AttackSprite:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 6, 7, 8, 9, 10, 11 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("AttackRaycast:enabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, true, false ]
+"values": [ 40, 48, 44, 49, 43, 47 ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -183,14 +134,6 @@ vframes = 10
 hframes = 5
 frame = 49
 
-[node name="AttackSprite" type="Sprite" parent="."]
-visible = false
-position = Vector2( 10.1503, -8.33089 )
-texture = ExtResource( 5 )
-vframes = 6
-hframes = 2
-frame = 11
-
 [node name="Animations" type="AnimationPlayer" parent="."]
 anims/Attack_1 = SubResource( 1 )
 anims/Attack_2 = SubResource( 2 )
@@ -199,7 +142,7 @@ anims/TakingDamage = SubResource( 4 )
 anims/Walk = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.722744, 3.23622 )
+position = Vector2( -0.900791, 5.2838 )
 shape = SubResource( 6 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
@@ -221,7 +164,8 @@ wait_time = 3.0
 autostart = true
 
 [node name="AttackRaycast" type="RayCast2D" parent="."]
-cast_to = Vector2( 32, 0 )
+enabled = true
+cast_to = Vector2( 15, 0 )
 collision_mask = 2
 [connection signal="death" from="." to="." method="_on_skeleton_death"]
 [connection signal="health_change" from="." to="." method="_on_skeleton_health_change"]
