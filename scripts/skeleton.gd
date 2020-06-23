@@ -7,7 +7,8 @@ signal death
 signal health_change
 
 # export
-export (int) var speed = 100
+export (int) var walk_speed = 70
+export (int) var run_speed = 150
 export (int) var gravity = 1200
 export (int) var health = 5
 export (int) var damage = 1
@@ -22,8 +23,8 @@ onready var BackVisibility: RayCast2D = get_node("BackVisibility")
 
 # vars
 var velocity = Vector2()
-var direction = Consts.Direction.Left
-var attackedDirection = Consts.Direction.Left
+var direction = Consts.Direction.Right
+var attackedDirection = Consts.Direction.Right
 var state = Consts.BodyState.Idle
 
 func _ready():
@@ -58,7 +59,7 @@ func _process_state():
 			velocity.x = 0
 		Consts.BodyState.TakeDamage:
 			Animations.play("TakingDamage")
-			velocity.x = speed * attackedDirection
+			velocity.x = walk_speed * attackedDirection
 			velocity.y = -200
 			state = Consts.BodyState.None
 		Consts.BodyState.Death:
@@ -68,7 +69,7 @@ func _process_state():
 		Consts.BodyState.Move:
 			Animations.play("Walk")
 			Sprite.flip_h = direction == Consts.Direction.Left
-			velocity.x = direction * speed
+			velocity.x = direction * walk_speed
 
 func _process_raycasting():
 	if AreaOfDamage.enabled:

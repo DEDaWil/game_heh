@@ -120,7 +120,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 8.92072, 14.8258 )
+extents = Vector2( 8.00112, 14.8258 )
 
 [node name="skeleton" type="KinematicBody2D"]
 position = Vector2( 7.02469, 11.3476 )
@@ -142,7 +142,7 @@ anims/TakingDamage = SubResource( 4 )
 anims/Walk = SubResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.900791, 5.2838 )
+position = Vector2( 1.78814e-07, 5.2838 )
 shape = SubResource( 6 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
