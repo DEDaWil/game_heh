@@ -20,6 +20,8 @@
 layer = -1
 
 [node name="Moon and sky" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.001, 1 )
+motion_mirroring = Vector2( 1000, 0 )
 
 [node name="Moon" type="Sprite" parent="ParallaxBackground/Moon and sky"]
 modulate = Color( 0.960784, 0.960784, 0.960784, 1 )
