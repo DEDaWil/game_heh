@@ -19,7 +19,6 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "this is test text!"
 align = 1
 valign = 1
-percent_visible = -0.0714286
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,14 +28,14 @@ show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -5.0
-margin_top = -6.0
+margin_top = -5.0
 margin_right = 5.0
-margin_bottom = 8.0
+margin_bottom = 5.0
 texture = ExtResource( 1 )
 patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
-patch_margin_bottom = 6
+patch_margin_bottom = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
