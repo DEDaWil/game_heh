@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/skeleton.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/torch.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/camera.gd" type="Script" id=5]
-[ext_resource path="res://assets/audio/music/level/06castle2.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/audio/music/level/castle.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scenes/HUD.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/images/background/Hills.png" type="Texture" id=8]
 [ext_resource path="res://assets/images/background/background_1.png" type="Texture" id=9]
@@ -144,4 +144,5 @@ script = ExtResource( 5 )
 stream = ExtResource( 6 )
 volume_db = -10.687
 autoplay = true
+mix_target = 1
 [connection signal="update_hud" from="Player" to="CanvasLayer/HUD" method="_on_Player_update_hud"]
