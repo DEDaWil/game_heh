@@ -62,8 +62,8 @@ player_up={
 2d_physics/layer_4="EnemyHurtbox"
 2d_render/layer_5="Enemy"
 2d_physics/layer_5="Enemy"
-2d_render/layer_6="DeadEnemy"
-2d_physics/layer_6="DeadEnemy"
+2d_render/layer_6="NPC"
+2d_physics/layer_6="NPC"
 
 [rendering]
 
