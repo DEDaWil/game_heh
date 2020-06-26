@@ -21,6 +21,7 @@ config/icon="res://assets/icon/icon.png"
 
 [display]
 
+window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 

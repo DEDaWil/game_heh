@@ -5,8 +5,7 @@
 [ext_resource path="res://scripts/HUD.gd" type="Script" id=3]
 
 [node name="Control" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -19,6 +18,20 @@ max_value = 5.0
 value = 5.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -100.989
+margin_top = 13.4255
+margin_right = -46.9893
+margin_bottom = 27.4255
+text = "test11"
+align = 1
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
