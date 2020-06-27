@@ -25,6 +25,10 @@ window/vsync/use_vsync=false
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 
+[global]
+
+font=false
+
 [input]
 
 player_right={
@@ -70,3 +74,4 @@ player_up={
 
 quality/2d/use_pixel_snap=true
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=false
