@@ -71,7 +71,6 @@ func _process_state():
 		Consts.BodyState.Death:
 			Animations.play("Death")
 			velocity.x = 0
-			set_collision_layer_bit(Consts.Layers.Player, false)
 			state = Consts.BodyState.Dead
 		Consts.BodyState.TakeDamage:
 			velocity.x = run_speed / 2 * attackedDirection
@@ -92,11 +91,11 @@ func is_dead() -> bool:
 func take_damage(_damage: int, _direction):
 	attackedDirection = _direction
 	health -= _damage
-	state = Consts.BodyState.TakeDamage
 	if health <= 0:
 		health = 0
 		emit_signal("death")
-		state = Consts.BodyState.Death
+	else:
+		state = Consts.BodyState.TakeDamage
 	emit_signal("update_hud", health)
 
 func _process_raycasting():
@@ -110,3 +109,8 @@ func _process_raycasting():
 func _on_Animations_animation_finished(anim_name: String):
 	if anim_name == "Attack":
 		state = Consts.BodyState.Idle
+
+func _on_Player_death():
+	set_collision_layer_bit(Consts.Layers.Player, false)
+	set_collision_mask_bit(Consts.Layers.Enemy, false)
+	state = Consts.BodyState.Death

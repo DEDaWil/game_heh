@@ -134,4 +134,5 @@ collide_with_areas = true
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
 area_mask = 2
+[connection signal="death" from="." to="." method="_on_Player_death"]
 [connection signal="animation_finished" from="Animations" to="." method="_on_Animations_animation_finished"]
