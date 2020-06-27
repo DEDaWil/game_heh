@@ -4,6 +4,7 @@ const Consts = preload("res://scripts/core/consts.gd")
 
 # signals
 signal update_hud(health)
+signal death
 
 # export
 export (int) var run_speed = 100
@@ -36,7 +37,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2(0, -1))
 
 func _process_input():
-	if state == Consts.BodyState.TakeDamage || state == Consts.BodyState.None:
+	if state == Consts.BodyState.TakeDamage || state == Consts.BodyState.None || is_dead():
 		return
 	if Input.is_action_just_pressed("player_hit") && is_on_floor():
 		state = Consts.BodyState.Attack
@@ -67,6 +68,11 @@ func _process_state():
 			velocity.x = 0
 		Consts.BodyState.Jump:
 			velocity.y = -jump
+		Consts.BodyState.Death:
+			Animations.play("Death")
+			velocity.x = 0
+			set_collision_layer_bit(Consts.Layers.Player, false)
+			state = Consts.BodyState.Dead
 		Consts.BodyState.TakeDamage:
 			velocity.x = run_speed / 2 * attackedDirection
 			velocity.y = -200
@@ -80,12 +86,17 @@ func run():
 	Sprite.flip_h = direction == -1
 	velocity.x = direction * run_speed
 
+func is_dead() -> bool:
+	return state == Consts.BodyState.Death || state == Consts.BodyState.Dead
+
 func take_damage(_damage: int, _direction):
 	attackedDirection = _direction
 	health -= _damage
 	state = Consts.BodyState.TakeDamage
 	if health <= 0:
 		health = 0
+		emit_signal("death")
+		state = Consts.BodyState.Death
 	emit_signal("update_hud", health)
 
 func _process_raycasting():
