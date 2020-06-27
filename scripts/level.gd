@@ -8,4 +8,4 @@ func _on_Player_death():
 	$LevelRestartTimer.start()
 
 func _on_LevelRestartTimer_timeout():
-	get_tree().change_scene("res://scenes/level.tscn")
+	get_tree().reload_current_scene()
