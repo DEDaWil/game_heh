@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/terrain.tres" type="TileSet" id=1]
 [ext_resource path="res://scenes/player.tscn" type="PackedScene" id=2]
@@ -13,8 +13,13 @@
 [ext_resource path="res://assets/images/background/Forest.png" type="Texture" id=11]
 [ext_resource path="res://assets/images/background/Mountain.png" type="Texture" id=12]
 [ext_resource path="res://scenes/NPC.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scripts/level.gd" type="Script" id=14]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 20.4127
 
 [node name="Node" type="Node"]
+script = ExtResource( 14 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 layer = -1
@@ -85,7 +90,7 @@ scale = Vector2( 4, 4 )
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 16, 16 )
 format = 1
-tile_data = PoolIntArray( 524297, 15, 0 )
+tile_data = PoolIntArray( 524297, 15, 0, 524314, 2, 0 )
 
 [node name="Torches" type="Node" parent="."]
 
@@ -145,4 +150,13 @@ stream = ExtResource( 6 )
 volume_db = -10.687
 autoplay = true
 mix_target = 1
+
+[node name="Exit" type="Area2D" parent="."]
+position = Vector2( 1696.81, 542.9 )
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+position = Vector2( 0, 3.37683 )
+shape = SubResource( 1 )
 [connection signal="update_hud" from="Player" to="CanvasLayer/HUD" method="_on_Player_update_hud"]
+[connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]

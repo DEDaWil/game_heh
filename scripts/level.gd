@@ -1,0 +1,5 @@
+extends Node
+
+func _on_Exit_body_entered(body: Node):
+	if body.is_in_group("Player"):
+		get_tree().change_scene("res://scenes/level_2.tscn")
