@@ -145,11 +145,15 @@ smoothing_enabled = true
 smoothing_speed = 10.0
 script = ExtResource( 5 )
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="Node" parent="."]
+
+[node name="MainMusic" type="AudioStreamPlayer" parent="Music"]
 stream = ExtResource( 6 )
-volume_db = -10.687
+volume_db = -10.0
 autoplay = true
 mix_target = 1
+
+[node name="MusicFade" type="Tween" parent="Music"]
 
 [node name="Exit" type="Area2D" parent="."]
 position = Vector2( 1696.81, 542.9 )
@@ -164,5 +168,6 @@ wait_time = 3.0
 one_shot = true
 [connection signal="death" from="Player" to="." method="_on_Player_death"]
 [connection signal="update_hud" from="Player" to="CanvasLayer/HUD" method="_on_Player_update_hud"]
+[connection signal="tween_completed" from="Music/MusicFade" to="." method="_on_MusicFade_tween_completed"]
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
 [connection signal="timeout" from="LevelRestartTimer" to="." method="_on_LevelRestartTimer_timeout"]
